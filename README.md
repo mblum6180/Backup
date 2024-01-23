@@ -34,4 +34,4 @@ To restore directories:
 - It's advisable to perform a test backup and restore with non-critical data before using the scripts for important data.
 
 ## Disclaimer
-These scripts are provided "as is" without warranty of any kind. Use them at 
+These scripts are provided "as is" without warranty of any kind. Use them at your own risk.
