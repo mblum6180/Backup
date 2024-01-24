@@ -47,6 +47,9 @@ if mount | grep -q "$BACKUP_DRIVE"; then
         echo "Backup date/time: $(date)"
         echo "Drive Free Space: $(df -h | grep "$BACKUP_DRIVE" | awk '{print $4}')"
     } >> "$BACKUP_LIST_FILE"
+        
+    # Copy the updated BackupListFile to the backup drive
+    cp "$BACKUP_LIST_FILE" "$BACKUP_DRIVE/"
 
     echo "Backup information appended to $BACKUP_LIST_FILE."
 else
