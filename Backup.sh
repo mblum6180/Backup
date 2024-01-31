@@ -23,6 +23,15 @@ backup_directory() {
     local dest_dir=$2
     local dir_name=$(basename "$source_dir")
 
+    # Warning message about deletion
+    echo "WARNING: This backup will delete files in the backup directory that are no longer present in the source directory."
+    echo "Do you want to continue? (y/n)"
+    read -r response
+    if [[ "$response" != "y" ]]; then
+        echo "Backup aborted by user."
+        exit 1
+    fi
+
     echo "Starting backup of $dir_name directory..."
     rsync -av --delete "$source_dir" "$dest_dir/$dir_name"
 
@@ -47,7 +56,7 @@ if mount | grep -q "$BACKUP_DRIVE"; then
         echo "Backup date/time: $(date)"
         echo "Drive Free Space: $(df -h | grep "$BACKUP_DRIVE" | awk '{print $4}')"
     } >> "$BACKUP_LIST_FILE"
-        
+    
     # Copy the updated BackupListFile to the backup drive
     cp "$BACKUP_LIST_FILE" "$BACKUP_DRIVE/"
 
@@ -56,4 +65,3 @@ else
     echo "Error: Backup drive is not mounted." >&2
     exit 1
 fi
-
